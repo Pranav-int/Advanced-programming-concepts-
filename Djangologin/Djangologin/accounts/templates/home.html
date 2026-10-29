@@ -1,0 +1,14 @@
+
+@"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h2>Login Successful!</h2>
+    <p>Welcome, {{ request.user.username }}!</p>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
+"@ | Set-Content .\accounts\templates\home.html
