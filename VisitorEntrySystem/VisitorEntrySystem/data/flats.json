@@ -1,0 +1,32 @@
+[
+  {
+    "number": "101",
+    "owner_name": "Mr. Sharma",
+    "owner_phone": "9876543210",
+    "telegram_chat_id": "8656467154"
+  },
+  {
+    "number": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "telegram_chat_id": "8656467154"
+  },
+  {
+    "number": "201",
+    "owner_name": "Mr. Khan",
+    "owner_phone": "9988776655",
+    "telegram_chat_id": "8656467154"
+  },
+  {
+    "number": "202",
+    "owner_name": "Ms. Joshi",
+    "owner_phone": "9012345678",
+    "telegram_chat_id": "8656467154"
+  },
+  {
+    "number": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "telegram_chat_id": "8656467154"
+  }
+]

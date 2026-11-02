@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon %}
+{% block title %}Flats{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div><h1>Flats &amp; owners</h1><p class="muted">Manage who gets alerted for each flat, and connect their phone.</p></div>
+</header>
+
+<div class="grid-2 even">
+  <section class="card">
+    <div class="card-head"><h2>{{ icon('send', 20) }} Telegram alerts</h2>
+      <span class="badge {{ 'in' if channels[0].enabled else 'out' }}">{{ channels[0].text }}</span></div>
+    {% if channels[0].enabled %}
+      <p>{% if bot %}Bot: <strong>@{{ bot }}</strong>{% else %}Bot token set, but Telegram could not be reached.{% endif %}</p>
+      <ol class="steps">
+        <li>Copy a flat's <b>invite link</b> from the table below and send it to the owner.</li>
+        <li>The owner opens it and presses <b>Start</b> in Telegram.</li>
+        <li>Click <b>Sync Telegram links</b>. The flat is now connected.</li>
+      </ol>
+      <form method="post" action="{{ url_for('telegram_sync') }}" data-once>
+        <button class="btn btn-primary" type="submit">{{ icon('refresh', 16) }} Sync Telegram links</button>
+      </form>
+    {% else %}
+      <p class="muted">Free and instant. Create a bot with <b>@BotFather</b> on Telegram, then put its token in the <code>.env</code> file as <code>TELEGRAM_BOT_TOKEN</code> and restart the app.</p>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>{{ icon('phone', 20) }} SMS alerts (Twilio)</h2>
+      <span class="badge {{ 'in' if channels[1].enabled else 'out' }}">{{ channels[1].text }}</span></div>
+    {% if channels[1].enabled %}
+      <p>SMS goes to each owner's phone number below. Use <b>Test</b> on a flat to check delivery.</p>
+    {% else %}
+      <p class="muted">Add <code>TWILIO_ACCOUNT_SID</code>, <code>TWILIO_AUTH_TOKEN</code> and <code>TWILIO_FROM_NUMBER</code> to <code>.env</code> and restart.</p>
+    {% endif %}
+    <p class="note">Twilio trial accounts only deliver to verified numbers, and Indian numbers also need DLT registration for reliable delivery.</p>
+  </section>
+</div>
+
+<section class="card">
+  <div class="card-head"><h2>{{ icon('grid', 20) }} All flats <span class="count">{{ flats|length }}</span></h2></div>
+  <div class="scroll">
+  <table class="table">
+    <thead><tr><th>Flat</th><th>Owner</th><th>Phone</th><th>Telegram</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    {% for f in flats %}
+    <tr>
+      <td><span class="flat-tag">{{ f.number }}</span></td>
+      <td><div class="who"><span class="avatar sm" style="--h:{{ f.owner.name|hue }}">{{ f.owner.name|initials }}</span><strong>{{ f.owner.name }}</strong></div></td>
+      <td>{{ f.owner.phone }}</td>
+      <td>
+        {% if f.owner.telegram_linked %}<span class="badge in">{{ icon('check', 12) }} Linked</span>
+        {% else %}<span class="badge out">Not linked</span>
+          {% if bot %}<button class="btn btn-ghost btn-sm" type="button" data-copy="https://t.me/{{ bot }}?start={{ f.number }}">{{ icon('copy', 14) }} Invite link</button>{% endif %}
+        {% endif %}
+      </td>
+      <td class="right actions">
+        <form method="post" action="{{ url_for('flat_test', number=f.number) }}" data-once><button class="btn btn-ghost btn-sm" type="submit">{{ icon('send', 14) }} Test</button></form>
+        <button class="btn btn-ghost btn-sm" type="button" data-edit-flat data-number="{{ f.number }}" data-owner="{{ f.owner.name }}" data-phone="{{ f.owner.phone }}">{{ icon('edit', 14) }} Edit</button>
+        <form method="post" action="{{ url_for('flat_delete', number=f.number) }}" onsubmit="return confirm('Delete Flat {{ f.number }}?')"><button class="btn btn-ghost btn-sm danger-text" type="submit">{{ icon('trash', 14) }}</button></form>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head"><h2>{{ icon('plus', 20) }} Add a flat</h2></div>
+  <form method="post" action="{{ url_for('flat_add') }}" class="inline-form" data-once autocomplete="off">
+    <div class="field"><label>Flat number</label><input name="number" required maxlength="10" placeholder="e.g. 301 or A-12"></div>
+    <div class="field"><label>Owner name</label><input name="owner_name" required maxlength="40" placeholder="Owner's name"></div>
+    <div class="field"><label>Owner phone</label><input name="owner_phone" required data-digits inputmode="numeric" maxlength="10" pattern="\d{10}" placeholder="10-digit number"></div>
+    <button class="btn btn-primary" type="submit">{{ icon('plus', 16) }} Add flat</button>
+  </form>
+</section>
+
+<dialog id="edit-dialog">
+  <form method="post" id="edit-form" data-once autocomplete="off">
+    <h2>Edit flat <span id="edit-title"></span></h2>
+    <div class="field"><label>Owner name</label><input name="owner_name" id="edit-owner" required maxlength="40"></div>
+    <div class="field"><label>Owner phone</label><input name="owner_phone" id="edit-phone" required data-digits inputmode="numeric" maxlength="10" pattern="\d{10}"></div>
+    <label class="check"><input type="checkbox" name="unlink_telegram" value="1"> Unlink Telegram (use when the owner changes)</label>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" type="button" data-close-dialog>Cancel</button>
+      <button class="btn btn-primary" type="submit">Save changes</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}

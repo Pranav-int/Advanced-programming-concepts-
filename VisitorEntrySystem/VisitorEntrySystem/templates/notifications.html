@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, delivery_chips %}
+{% block title %}Alerts{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div><h1>Owner alerts</h1><p class="muted">Every notification sent when a visitor enters or leaves, and whether it was delivered.</p></div>
+  <form method="get"><select name="flat" onchange="this.form.submit()" aria-label="Filter by flat">
+    <option value="">All flats</option>
+    {% for f in flats %}<option value="{{ f.number }}" {{ 'selected' if selected == f.number }}>Flat {{ f.number }} · {{ f.owner.name }}</option>{% endfor %}
+  </select></form>
+</header>
+
+<section class="card">
+  {% if items %}
+  <ul class="feed big">
+    {% for n in items %}
+    <li>
+      <span class="ev ev-{{ n.event|lower }}">{{ n.event }}</span>
+      <div class="feed-main">
+        <p>{{ n.message }}</p>
+        <small>To {{ n.owner_name }} · {{ n.owner_phone }} · Flat {{ n.flat_no }} · {{ n.time|pretty('%d %b %Y, %I:%M %p') }}</small>
+      </div>
+      <div class="dchips">{{ delivery_chips(n.results) }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty">{{ icon('bell', 40) }}<p>No alerts yet.</p><small>They appear here as soon as a visitor is marked IN or OUT.</small></div>
+  {% endif %}
+</section>
+{% endblock %}

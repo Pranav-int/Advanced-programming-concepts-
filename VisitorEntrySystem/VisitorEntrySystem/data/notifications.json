@@ -1,0 +1,344 @@
+[
+  {
+    "id": "20261101231512934617",
+    "time": "2026-11-01 23:15:12",
+    "event": "IN",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9123456780",
+    "message": "\ud83d\udeaa vedant (9307161671) ENTERED Green Valley Residency, Flat 102 at 11:15 PM. Purpose: Guest.",
+    "results": []
+  },
+  {
+    "id": "20261101231541144568",
+    "time": "2026-11-01 23:15:41",
+    "event": "TEST",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9123456780",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 102 are working.",
+    "results": []
+  },
+  {
+    "id": "20261101231602400449",
+    "time": "2026-11-01 23:16:02",
+    "event": "TEST",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 102 are working.",
+    "results": []
+  },
+  {
+    "id": "20261101231628523292",
+    "time": "2026-11-01 23:16:28",
+    "event": "OUT",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udc4b vedant (9307161671) LEFT Green Valley Residency, Flat 102 at 11:16 PM. Visit lasted 1 min.",
+    "results": []
+  },
+  {
+    "id": "20261101231948669078",
+    "time": "2026-11-01 23:19:48",
+    "event": "TEST",
+    "flat_no": "101",
+    "owner_name": "Mr. Sharma",
+    "owner_phone": "9876543210",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 101 are working.",
+    "results": []
+  },
+  {
+    "id": "20261101232330265024",
+    "time": "2026-11-01 23:23:30",
+    "event": "TEST",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 102 are working.",
+    "results": []
+  },
+  {
+    "id": "20261101232414017503",
+    "time": "2026-11-01 23:24:14",
+    "event": "TEST",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 102 are working.",
+    "results": []
+  },
+  {
+    "id": "20261101234913881033",
+    "time": "2026-11-01 23:49:13",
+    "event": "IN",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udeaa vedant (6484614918) ENTERED Green Valley Residency, Flat 102 at 11:49 PM. Purpose: Guest.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": false,
+        "detail": "Owner has not linked Telegram yet"
+      }
+    ]
+  },
+  {
+    "id": "20261101235532786111",
+    "time": "2026-11-01 23:55:32",
+    "event": "TEST",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 102 are working.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261101235554465835",
+    "time": "2026-11-01 23:55:54",
+    "event": "OUT",
+    "flat_no": "102",
+    "owner_name": "Mrs. Patil",
+    "owner_phone": "9307161671",
+    "message": "\ud83d\udc4b vedant (6484614918) LEFT Green Valley Residency, Flat 102 at 11:55 PM. Visit lasted 6 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261101235857135358",
+    "time": "2026-11-01 23:58:57",
+    "event": "IN",
+    "flat_no": "201",
+    "owner_name": "Mr. Khan",
+    "owner_phone": "9988776655",
+    "message": "\ud83d\udeaa aditya (9315354994) ENTERED Green Valley Residency, Flat 201 at 11:58 PM. Purpose: Delivery.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261101235917418727",
+    "time": "2026-11-01 23:59:17",
+    "event": "OUT",
+    "flat_no": "201",
+    "owner_name": "Mr. Khan",
+    "owner_phone": "9988776655",
+    "message": "\ud83d\udc4b aditya (9315354994) LEFT Green Valley Residency, Flat 201 at 11:59 PM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261101235951142038",
+    "time": "2026-11-01 23:59:51",
+    "event": "IN",
+    "flat_no": "101",
+    "owner_name": "Mr. Sharma",
+    "owner_phone": "9876543210",
+    "message": "\ud83d\udeaa viraj (2145497654) ENTERED Green Valley Residency, Flat 101 at 11:59 PM. Purpose: Service / Repair.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102000027021143",
+    "time": "2026-11-02 00:00:27",
+    "event": "OUT",
+    "flat_no": "101",
+    "owner_name": "Mr. Sharma",
+    "owner_phone": "9876543210",
+    "message": "\ud83d\udc4b viraj (2145497654) LEFT Green Valley Residency, Flat 101 at 12:00 AM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102000051219380",
+    "time": "2026-11-02 00:00:51",
+    "event": "IN",
+    "flat_no": "202",
+    "owner_name": "Ms. Joshi",
+    "owner_phone": "9012345678",
+    "message": "\ud83d\udeaa ghhgv (5351594884) ENTERED Green Valley Residency, Flat 202 at 12:00 AM. Purpose: Guest.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102000115582333",
+    "time": "2026-11-02 00:01:15",
+    "event": "OUT",
+    "flat_no": "202",
+    "owner_name": "Ms. Joshi",
+    "owner_phone": "9012345678",
+    "message": "\ud83d\udc4b ghhgv (5351594884) LEFT Green Valley Residency, Flat 202 at 12:01 AM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102001811542332",
+    "time": "2026-11-02 00:18:11",
+    "event": "TEST",
+    "flat_no": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "message": "\ud83d\udd14 Test alert from Green Valley Residency: alerts for Flat 103 are working.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102001830629183",
+    "time": "2026-11-02 00:18:30",
+    "event": "IN",
+    "flat_no": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "message": "\ud83d\udeaa jx cbiu zdck (2561461496) ENTERED Green Valley Residency, Flat 103 at 12:18 AM. Purpose: Guest.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102001844417707",
+    "time": "2026-11-02 00:18:44",
+    "event": "OUT",
+    "flat_no": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "message": "\ud83d\udc4b jx cbiu zdck (2561461496) LEFT Green Valley Residency, Flat 103 at 12:18 AM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102093455325483",
+    "time": "2026-11-02 09:34:55",
+    "event": "IN",
+    "flat_no": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "message": "\ud83d\udeaa Parth (9699353543) ENTERED Green Valley Residency, Flat 103 at 09:34 AM. Purpose: Guest.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102093532205119",
+    "time": "2026-11-02 09:35:32",
+    "event": "OUT",
+    "flat_no": "103",
+    "owner_name": "Mr.shinde",
+    "owner_phone": "9999555333",
+    "message": "\ud83d\udc4b Parth (9699353543) LEFT Green Valley Residency, Flat 103 at 09:35 AM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102105930160208",
+    "time": "2026-11-02 10:59:30",
+    "event": "IN",
+    "flat_no": "202",
+    "owner_name": "Ms. Joshi",
+    "owner_phone": "9012345678",
+    "message": "\ud83d\udeaa vaishnavi (5615156546) ENTERED Green Valley Residency, Flat 202 at 10:59 AM. Purpose: Guest.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  },
+  {
+    "id": "20261102105938148985",
+    "time": "2026-11-02 10:59:38",
+    "event": "OUT",
+    "flat_no": "202",
+    "owner_name": "Ms. Joshi",
+    "owner_phone": "9012345678",
+    "message": "\ud83d\udc4b vaishnavi (5615156546) LEFT Green Valley Residency, Flat 202 at 10:59 AM. Visit lasted under 1 min.",
+    "results": [
+      {
+        "channel": "telegram",
+        "label": "Telegram",
+        "ok": true,
+        "detail": "Delivered"
+      }
+    ]
+  }
+]

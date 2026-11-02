@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon %}
+{% block title %}History{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div><h1>Visit history</h1><p class="muted">The complete digital register. Search, filter and export.</p></div>
+  <a class="btn btn-ghost" href="{{ url_for('history_csv') }}">{{ icon('download', 16) }} Export CSV</a>
+</header>
+
+<section class="card">
+  <div class="toolbar">
+    <div class="search">{{ icon('search', 16) }}<input type="search" id="hist-search" placeholder="Search name, phone or flat…"></div>
+    <select id="hist-status"><option value="">All status</option><option value="IN">Inside</option><option value="OUT">Left</option></select>
+    <select id="hist-flat"><option value="">All flats</option>
+      {% for f in flats %}<option value="{{ f.number }}">Flat {{ f.number }}</option>{% endfor %}
+    </select>
+  </div>
+
+  {% if logs %}
+  <div class="scroll">
+    <table class="table" id="hist-table">
+      <thead><tr><th>Visitor</th><th>Flat</th><th>Purpose</th><th>In</th><th>Out</th><th>Duration</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for l in logs %}
+        <tr data-text="{{ (l.visitor.name ~ ' ' ~ l.visitor.phone ~ ' ' ~ l.flat_no)|lower }}" data-status="{{ l.status }}" data-flat="{{ l.flat_no }}">
+          <td><div class="who"><span class="avatar sm" style="--h:{{ l.visitor.name|hue }}">{{ l.visitor.name|initials }}</span>
+            <div><strong>{{ l.visitor.name }}</strong><small>{{ l.visitor.phone }}</small></div></div></td>
+          <td><span class="flat-tag">{{ l.flat_no }}</span></td>
+          <td>{{ l.visitor.purpose }}</td>
+          <td>{{ l.in_time|pretty }}</td>
+          <td>{{ l.out_time|pretty if l.out_time else '—' }}</td>
+          <td>{{ l.duration_text }}</td>
+          <td><span class="badge {{ l.status|lower }}">{{ 'Inside' if l.status == 'IN' else 'Left' }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="empty small" id="hist-empty" hidden>{{ icon('search', 32) }}<p>No visits match your filters.</p></div>
+  {% else %}
+  <div class="empty">{{ icon('clock', 40) }}<p>No visits recorded yet.</p></div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% from "_ui.html" import icon %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Gate Desk{% endblock %} · VisitorEntrySystem</title>
+  <script>try{var t=localStorage.getItem('ves-theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% set ep = request.endpoint %}
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo">{{ icon('shield', 22) }}</span>
+      <div><strong>VisitorEntry</strong><small>{{ society }}</small></div>
+    </div>
+    <nav class="nav">
+      <a href="{{ url_for('index') }}" class="{{ 'active' if ep == 'index' }}">{{ icon('home') }}<span>Gate Desk</span></a>
+      <a href="{{ url_for('history') }}" class="{{ 'active' if ep == 'history' }}">{{ icon('clock') }}<span>History</span></a>
+      <a href="{{ url_for('notifications') }}" class="{{ 'active' if ep == 'notifications' }}">{{ icon('bell') }}<span>Alerts</span></a>
+      <a href="{{ url_for('flats') }}" class="{{ 'active' if ep == 'flats' }}">{{ icon('grid') }}<span>Flats</span></a>
+    </nav>
+    <div class="side-foot">
+      <div class="channel-list">
+        {% for c in channels %}
+        <div class="channel"><span class="dot {{ 'on' if c.enabled else 'off' }}"></span>{{ c.label }}<small>{{ c.text }}</small></div>
+        {% endfor %}
+      </div>
+      <button class="theme-btn" type="button" data-theme-toggle title="Switch theme">
+        <span class="only-light">{{ icon('moon', 16) }} Dark mode</span>
+        <span class="only-dark">{{ icon('sun', 16) }} Light mode</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="toasts" aria-live="polite">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="toast {{ category }}">
+          <span class="toast-ico">{{ icon('check' if category == 'success' else 'info', 18) }}</span>
+          <span class="toast-msg">{{ message }}</span>
+          <button class="toast-x" type="button" aria-label="Dismiss">{{ icon('x', 16) }}</button>
+        </div>
+        {% endfor %}
+      {% endwith %}
+    </div>
+    {% block content %}{% endblock %}
+  </main>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

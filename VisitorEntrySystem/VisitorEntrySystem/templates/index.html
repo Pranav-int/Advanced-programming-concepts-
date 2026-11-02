@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% from "_ui.html" import icon, delivery_chips %}
+{% block title %}Gate Desk{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div>
+    <h1>Gate Desk</h1>
+    <p class="muted">Register visitors in seconds. The flat owner is alerted instantly.</p>
+  </div>
+  <div class="date-pill">{{ icon('clock', 16) }} <span data-clock></span></div>
+</header>
+
+<section class="stats">
+  <div class="stat"><span class="stat-ico c-green">{{ icon('users', 22) }}</span><div><b>{{ stats.inside }}</b><small>Inside now</small></div></div>
+  <div class="stat"><span class="stat-ico c-indigo">{{ icon('log-in', 22) }}</span><div><b>{{ stats.today }}</b><small>Visits today</small></div></div>
+  <div class="stat"><span class="stat-ico c-amber">{{ icon('log-out', 22) }}</span><div><b>{{ stats.exited }}</b><small>Exited today</small></div></div>
+  <div class="stat"><span class="stat-ico c-blue">{{ icon('bell', 22) }}</span><div><b>{{ stats.alerts }}</b><small>Alerts sent today</small></div></div>
+</section>
+
+<div class="grid-2">
+  <section class="card">
+    <div class="card-head"><h2>{{ icon('log-in', 20) }} New visitor entry</h2></div>
+    <form method="post" action="{{ url_for('check_in') }}" data-once autocomplete="off">
+      <div class="field">
+        <label for="name">Visitor name</label>
+        <input id="name" name="name" required maxlength="40" placeholder="e.g. Rahul Verma">
+      </div>
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" required data-digits inputmode="numeric" maxlength="10"
+               pattern="\d{10}" title="Enter exactly 10 digits" placeholder="10-digit mobile number">
+      </div>
+      <div class="field">
+        <label for="flat_no">Visiting flat / room</label>
+        <select id="flat_no" name="flat_no" required>
+          <option value="" disabled selected>Select a flat</option>
+          {% for f in flats %}<option value="{{ f.number }}">Flat {{ f.number }} · {{ f.owner.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label>Purpose of visit</label>
+        <div class="chips">
+          {% for p in purposes %}
+          <label class="chip"><input type="radio" name="purpose" value="{{ p }}" {{ 'checked' if loop.first }}><span>{{ p }}</span></label>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">{{ icon('log-in', 18) }} Mark IN &amp; notify owner</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>{{ icon('users', 20) }} Inside now <span class="count">{{ active|length }}</span></h2></div>
+    {% if active %}
+    <ul class="rows">
+      {% for log in active %}
+      <li class="row">
+        <div class="avatar" style="--h:{{ log.visitor.name|hue }}">{{ log.visitor.name|initials }}</div>
+        <div class="row-main">
+          <strong>{{ log.visitor.name }}</strong>
+          <small>{{ log.visitor.phone }} · {{ log.visitor.purpose }}</small>
+        </div>
+        <div class="row-meta">
+          <span class="flat-tag">Flat {{ log.flat_no }}</span>
+          <small title="Entered at {{ log.in_time|pretty }}">{{ icon('clock', 12) }} <span data-since="{{ log.in_time.isoformat(timespec='seconds') }}">{{ log.duration_text }}</span></small>
+        </div>
+        <form method="post" action="{{ url_for('check_out', log_id=log.id) }}" data-once>
+          <button class="btn btn-danger btn-sm" type="submit">{{ icon('log-out', 16) }} OUT</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty">{{ icon('shield', 40) }}<p>Nobody is inside right now.</p><small>New entries will appear here.</small></div>
+    {% endif %}
+  </section>
+</div>
+
+<section class="card">
+  <div class="card-head">
+    <h2>{{ icon('bell', 20) }} Latest alerts to owners</h2>
+    <a class="link" href="{{ url_for('notifications') }}">View all</a>
+  </div>
+  {% if alerts %}
+  <ul class="feed">
+    {% for n in alerts %}
+    <li>
+      <span class="ev ev-{{ n.event|lower }}">{{ n.event }}</span>
+      <div class="feed-main"><p>{{ n.message }}</p>
+        <small>To {{ n.owner_name }} (Flat {{ n.flat_no }}) · {{ n.time|pretty }}</small></div>
+      <div class="dchips">{{ delivery_chips(n.results) }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty small">{{ icon('bell', 32) }}<p>No alerts yet.</p></div>
+  {% endif %}
+</section>
+{% endblock %}
